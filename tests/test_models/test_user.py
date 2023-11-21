@@ -7,6 +7,9 @@ from models.base_model import BaseModel
 import pep8
 
 
+env = os.environ.get('HBNB_TYPE_STORAGE')
+
+
 class TestUser(unittest.TestCase):
     """this will test the User class"""
 
@@ -21,7 +24,7 @@ class TestUser(unittest.TestCase):
 
     @classmethod
     def teardown(cls):
-        """this will tear it down at the end of test"""
+        """at the end of the test this will tear it down"""
         del cls.user
 
     def tearDown(self):
@@ -62,8 +65,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(type(self.user.first_name), str)
         self.assertEqual(type(self.user.first_name), str)
 
-    @unittest.skipIf(os.environ['HBNB_TYPE_STORAGE'] == 'db',
-                     'Invalid storage type')
+    @unittest.skipIf(env == 'db', "filestorage not in use")
     def test_save_User(self):
         """test if the save works"""
         self.user.save()
