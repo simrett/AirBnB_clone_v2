@@ -1,30 +1,30 @@
 #!/usr/bin/python3
 """This module defines a class User"""
-from models.base_model import BaseModel
-from models.base_model import Base
-from sqlalchemy import Column, String, ForeignKey
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String,
 from sqlalchemy.orm import relationship
-from os import getenv
 
 
 class User(BaseModel, Base):
-    """This class defines a user by various attributes"""
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        __tablename__ = 'users'
-        email = Column(String(128), nullable=False)
-        password = Column(String(128), nullable=False)
-        first_name = Column(String(128), nullable=True)
-        last_name = Column(String(128), nullable=True)
-        places = relationship("Place", cascade="delete", backref="user")
-        reviews = relationship("Review", cascade="delete", backref="user")
-    else:
-        email = ""
-        password = ""
-        first_name = ""
-        last_name = ""
-
-    def __init__(self, *args, **kwargs):
-        """
-            Initialize user instance
-        """
-        super().__init__(*args, **kwargs)
+    """This is the class for user
+    Attributes:
+        email: email address
+        password: password for you login
+        first_name: first name
+        last_name: last name
+        places: places associated with the User
+        reviews: reviews the User has made
+    """
+    __tablename__ = "users"
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128), nullable=True)
+    last_name = Column(String(128), nullable=True)
+    places = relationship('Place',
+                          backref='user',
+                          cascade='all, delete-orphan',
+                          passive_deletes=True)
+    reviews = relationship('Review',
+                           backref='user',
+                           cascade='all, delete-orphan',
+                           passive_deletes=True)
