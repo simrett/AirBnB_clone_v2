@@ -7,10 +7,12 @@ from datetime import datetime
 def do_pack():
     """ packages all contents from web_static into .tgz archive """
     now = datetime.now().strftime("%Y%m%d%H%M%S")
-    local('mkdir -p versions')
-    result = local('tar -czvf versions/web_static_{}.tgz web_static'
+    try:
+        local('mkdir -p versions')
+        local('tar -czvf versions/web_static_{}.tgz web_static'
               .format(now))
-    if result.failed:
+
+        return "versions/web_static_{}.tgz".format(now)
+
+    except Exception as e:
         return None
-    else:
-        return result
