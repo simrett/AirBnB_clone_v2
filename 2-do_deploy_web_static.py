@@ -75,4 +75,3 @@ def do_deploy(archive_path):
     print('\nNew Version Successfuly Deployed!\n')
 
     return True
-'34.227.92.219', '54.236.50.82'
