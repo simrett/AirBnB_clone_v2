@@ -5,7 +5,7 @@ from time import strftime
 
 
 def do_pack():
-    """ Pacages all contents from web_static in to .tgz file. the directory     """
+    """ Prepare the web_static directory by packing """
     time_name = strftime("%Y%m%d%H%M%S")
     try:
         local("mkdir -p versions")
